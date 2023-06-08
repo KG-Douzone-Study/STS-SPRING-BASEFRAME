@@ -85,5 +85,19 @@ public class SampleController {
 	public void ex6() {
 		
 	}
+	
+	// @ExceptionHandler @ControllerAdivce example
+	// http://localhost:8080/ex7?p1=AAA&p2=BBB 입력
+	/**
+	 * @warnMessage : WARN [org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver] 
+	 * Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException:
+	 * Failed to convert value of type 'java.lang.String' to required type 'int'; 
+	 * nested exception is java.lang.NumberFormatException: For input string: "BBB"]
+	 */
+	@GetMapping("/ex7")
+	public void ex7(String p1, int p2) {
+		log.info("p1......." + p1);
+		log.info("p2......." + p2);
+	}
 
 }
