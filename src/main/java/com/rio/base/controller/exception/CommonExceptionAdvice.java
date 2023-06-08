@@ -1,8 +1,10 @@
 package com.rio.base.controller.exception;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,6 +56,13 @@ public class CommonExceptionAdvice {
 		return buffer.toString();
 		
 	}
+	
+//	@ResponseBody
+//	@ExceptionHandler(Exception.class)
+//	public ResponseEntity<String> Exception(Exception exception) {
+//		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+//	}
+	
 	
 	// 404 에러페이지와 @ResponseStatus
 	// custom404.jsp 페이지를 만들고 web.xml에 DispatcherServlet 설정을 조정해야 한다.
