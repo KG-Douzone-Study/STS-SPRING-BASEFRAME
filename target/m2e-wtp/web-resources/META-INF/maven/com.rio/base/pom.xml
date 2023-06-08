@@ -244,7 +244,23 @@
 		</dependency>
 		
 		
-		 
+		<!-- DTO와 VO의 변환을 위한 ModelMapper -->
+		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+		<dependency>
+		    <groupId>org.modelmapper</groupId>
+		    <artifactId>modelmapper</artifactId>
+		    <version>3.0.0</version>
+		</dependency>
+		
+		<!-- DTO의 검증을 위한 Vaildate 관련 라이브러리 -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>7.0.4.Final</version>
+		</dependency>
+		
+		
 		
 	</dependencies>
 	
