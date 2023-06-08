@@ -58,6 +58,9 @@ public class CommonExceptionAdvice {
 	// 404 에러페이지와 @ResponseStatus
 	// custom404.jsp 페이지를 만들고 web.xml에 DispatcherServlet 설정을 조정해야 한다.
 	// <servlet> 태그 내에 <init-param>을 추가하고 throwExcetionIfNoHandlerFound라는 파라미터 설정을 추가해야 한다.
+	/**
+	 * jsp가 아닌 react 같은 것을 쓸때는 @ExceptionHandler 나 ResponseStatusException 같은 걸 쓸거 같다.
+	 */
 	@ExceptionHandler(NoHandlerFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND) // 404
 	public String notFound() {

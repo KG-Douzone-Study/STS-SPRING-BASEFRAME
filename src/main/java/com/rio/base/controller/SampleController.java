@@ -1,12 +1,17 @@
 package com.rio.base.controller;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rio.base.dto.TodoDTO;
@@ -98,6 +103,20 @@ public class SampleController {
 	public void ex7(String p1, int p2) {
 		log.info("p1......." + p1);
 		log.info("p2......." + p2);
+	}
+	
+	// ResponseStatusException
+	// 외부 라이브러리에서 정의한 코드는 우리가 수정할 수 없으므로 @ResponseStatus를 붙여줄 수 없다.
+	// spring5 에는 @ResponseStatus 의 프로그래밍적 대안으로써 손쉽게 에러를 반환할 수 있는 ResponseStatusException이 추가되었다.
+	// ResponseStatusException 은 HttpStatus 와 함께 reason 과 cause 를 추가할 수 있고,
+	// 언체크 예외를 상속받고 있어 명시적으로 에러를 처리해주지 않아도 된다.
+	@GetMapping("/product/{id}")
+	public ResponseEntity<?> getProduct(@PathVariable String id) {
+		try {
+			return ResponseEntity.ok("ResponseStatusException Test");
+		} catch (NoSuchElementException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+		}
 	}
 
 }
