@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rio.base.controller.customexception.CustomException;
+import com.rio.base.controller.customexception.ErrorCode;
 import com.rio.base.dto.TodoDTO;
 
 import lombok.extern.log4j.Log4j2;
@@ -117,6 +120,19 @@ public class SampleController {
 		} catch (NoSuchElementException e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
 		}
+	}
+	
+	//@ResponseBody
+	@GetMapping("/custom")
+	public void testCustomException2() {
+		log.error("custom exception check");
+		throw new CustomException(ErrorCode.PAGE_NOT_FOUND);
+		
+		/**
+		 * 혹시 json type으로 변환하지 못한다는 Error가 온다면 maven repository에서 jackson-Databind 를 pom.xml에 넣어주자.
+		 * 또 LocalDateTime을 변환하지 못한다는 error가 나온다면 error 내용에 따라 jackson-datatype-jsr310 같은 것도 pom.xml에 넣어주자.
+		 */
+		
 	}
 
 }
