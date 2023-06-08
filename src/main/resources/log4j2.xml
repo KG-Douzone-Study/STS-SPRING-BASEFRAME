@@ -18,6 +18,10 @@
 			<appender-ref ref="console" />
 		</logger>
 		
+		<logger name="com.rio.base.mapper" level="TRACE" additivity="false">
+			<appender-ref ref="console" />
+		</logger>
+		
 		<root level="INFO" additivity="false">
 			<Appender-ref ref="console" />
 		</root>
