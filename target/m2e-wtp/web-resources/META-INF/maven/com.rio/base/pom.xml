@@ -261,6 +261,16 @@
 		</dependency>
 		
 		
+		<!-- @Valid를 이용한 서버사이드 검증을 위한 Validate 관련 -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>6.2.3.Final</version>
+		</dependency>
+		
+		
+		
 		
 	</dependencies>
 	
