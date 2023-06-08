@@ -2,9 +2,12 @@ package com.rio.base.controller.exception;
 
 import java.util.Arrays;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -50,6 +53,15 @@ public class CommonExceptionAdvice {
 		
 		return buffer.toString();
 		
+	}
+	
+	// 404 에러페이지와 @ResponseStatus
+	// custom404.jsp 페이지를 만들고 web.xml에 DispatcherServlet 설정을 조정해야 한다.
+	// <servlet> 태그 내에 <init-param>을 추가하고 throwExcetionIfNoHandlerFound라는 파라미터 설정을 추가해야 한다.
+	@ExceptionHandler(NoHandlerFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND) // 404
+	public String notFound() {
+		return "custom404";
 	}
 	
 
