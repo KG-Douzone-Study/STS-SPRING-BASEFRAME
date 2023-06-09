@@ -1,6 +1,7 @@
 package com.rio.base.mapper;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,16 +26,33 @@ public class TodoMapperTests {
 		log.info(todoMapper.getTime());
 	}
 	
+//	@Test
+//	public void testInsert() {
+//		
+//		TodoVO todoVO = TodoVO.builder()
+//				.title("스프링 테스트")
+//				.dueDate(LocalDate.of(2022, 10, 10))
+//				.writer("user00")
+//				.build();
+//		
+//		todoMapper.insert(todoVO);
+//	}
+	
 	@Test
-	public void testInsert() {
+	public void testSelectAll() {
 		
-		TodoVO todoVO = TodoVO.builder()
-				.title("스프링 테스트")
-				.dueDate(LocalDate.of(2022, 10, 10))
-				.writer("user00")
-				.build();
+		List<TodoVO> voList = todoMapper.selectAll();
 		
-		todoMapper.insert(todoVO);
+		voList.forEach(vo -> log.info(vo));
+		
+	}
+	
+	@Test
+	public void testSelectOne() {
+		
+		TodoVO todoVO = todoMapper.selectOne(3L);
+		
+		log.info(todoVO);
 	}
 
 }

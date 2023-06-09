@@ -1,5 +1,8 @@
 package com.rio.base.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +38,44 @@ public class TodoServiceImpl implements TodoService{
 		// 의존성 주입이 필요한 객체의 타입을 final로 고정하고 @ReqiredArgsConstructor를 이용해서 생성자를 생성하는 방식을 사용한다.
 		// register()에서는 주입된 ModelMapper 를 이용해서 TodoDTO를 TodoVO로 변환하고 이를 TodoMapper를 통해서 insert 처리하게 된다.
 		// service 패키지는 root-context.xml 에서 component-scan 패키지로 추가해준다.
+		
+	}
+
+	@Override
+	public List<TodoDTO> getAll() {
+		// TODO Auto-generated method stub
+		List<TodoDTO> dtoList = todoMapper.selectAll().stream()
+				.map(vo -> modelMapper.map(vo, TodoDTO.class))
+				.collect(Collectors.toList());
+		
+		return dtoList;
+	}
+
+	@Override
+	public TodoDTO getOne(Long tno) {
+		// TODO Auto-generated method stub
+		TodoVO todoVO = todoMapper.selectOne(tno);
+		
+		TodoDTO todoDTO = modelMapper.map(todoVO, TodoDTO.class);
+		
+		return todoDTO;
+	}
+
+	@Override
+	public void remove(Long tno) {
+		// TODO Auto-generated method stub
+		
+		todoMapper.delete(tno);
+		
+	}
+
+	@Override
+	public void modify(TodoDTO todoDTO) {
+		// TODO Auto-generated method stub
+		
+		TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+		
+		todoMapper.update(todoVO);
 		
 	}
 	

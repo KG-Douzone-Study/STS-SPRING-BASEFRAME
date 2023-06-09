@@ -43,6 +43,7 @@
 		<property name="formatters">
 			<set>
 				<bean class="com.rio.base.controller.formatter.LocalDateFormatter" />
+				<bean class="com.rio.base.controller.formatter.CheckboxFormatter" />
 			</set>
 		</property>
 	</bean>
