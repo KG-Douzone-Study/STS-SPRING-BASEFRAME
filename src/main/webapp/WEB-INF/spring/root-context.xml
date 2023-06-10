@@ -15,8 +15,12 @@
 	
 	<context:component-scan base-package="com.rio.base" />
 	
-	<!-- AOP 설정 (pom.xml aspectj-weaver 추가, Namespaces 에 aop 추가) -->
-	<bean id="log" class="com.rio.base.common.AopLogAdvice"></bean>
+	<!-- AOP 어노테이션 설정 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
+	<!-- AOP xml 설정 (pom.xml aspectj-weaver 추가, Namespaces 에 aop 추가) -->
+	<!-- Controller AOP 설정은 보통 servlet-context.xml에 적용한다. -->
+	<!-- <bean id="log" class="com.rio.base.common.AopLogAdvice"></bean>
 	<bean id="before" class="com.rio.base.common.BeforeAdvice"></bean>
 	<bean id="afterReturning" class="com.rio.base.common.AfterReturningAdvice"></bean>
 	<bean id="afterThrowing" class="com.rio.base.common.AfterThrowingAdvice"></bean>
@@ -24,16 +28,19 @@
 	<bean id="around" class="com.rio.base.common.AroundAdvice"></bean>
 	
 	<aop:config>
-							<!-- execution(리턴타입패턴 패키지경로패턴.클래스이름패턴.메서드이름패턴(파라미터패턴) -->
+							execution(리턴타입패턴 패키지경로패턴.클래스이름패턴.메서드이름패턴(파라미터패턴)
 		<aop:pointcut expression="execution(* com.rio.base..*Impl.*(..))" id="allPointcut"/>
 		<aop:pointcut expression="execution(* com.rio.base..*Impl.get*(..))" id="getPointcut"/>
 		<aop:aspect ref="around">
 			<aop:around method="aroundLog" pointcut-ref="allPointcut"/>
 		</aop:aspect>
-		<!-- <aop:aspect ref="after">
+		<aop:aspect ref="after">
 			<aop:after method="finallyLog" pointcut-ref="allPointcut"/>
-		</aop:aspect> -->
-	</aop:config>
+		</aop:aspect>
+		<aop:aspect ref="before">
+			<aop:before method="beforeLog" pointcut-ref="getPointcut"/>
+		</aop:aspect>
+	</aop:config> -->
 	
 	<!-- MariaDB DataSource Config -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
