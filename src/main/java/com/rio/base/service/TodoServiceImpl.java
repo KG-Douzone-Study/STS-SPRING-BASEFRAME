@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.rio.base.common.LogAdvice;
 import com.rio.base.domain.TodoVO;
 import com.rio.base.dto.TodoDTO;
 import com.rio.base.mapper.TodoMapper;
@@ -44,9 +45,17 @@ public class TodoServiceImpl implements TodoService{
 	@Override
 	public List<TodoDTO> getAll() {
 		// TODO Auto-generated method stub
+		
+		log.info("---------- AOP Test Line ----------");
+		
 		List<TodoDTO> dtoList = todoMapper.selectAll().stream()
 				.map(vo -> modelMapper.map(vo, TodoDTO.class))
 				.collect(Collectors.toList());
+		
+//		log.info(dtoList.size());
+//		if (dtoList.size() == 2) {
+//			throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
+//		}
 		
 		return dtoList;
 	}

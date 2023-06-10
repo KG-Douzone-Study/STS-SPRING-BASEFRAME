@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans 
-       http://www.springframework.org/schema/beans/spring-beans.xsd 
-       http://www.springframework.org/schema/mvc 
-       https://www.springframework.org/schema/mvc/spring-mvc.xsd 
-       http://www.springframework.org/schema/context 
-       https://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -23,7 +23,10 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="com.rio.base" />
+	<context:component-scan base-package="com.rio.base.controller" />
+	
+	<bean id="homeController" class="com.rio.base.HomeController"></bean>
+	
 	
 	<!-- 아래 태그는 Spring MVC가 @Controller에 요청을 보내기 위해 HandlerMapping 과 HandlerAdapter 를 bean 으로 등록한다. -->
 	<!-- 이렇게 등록된 bean 에 의해 요청 url 과 컨트롤러를 매칭할 수 있다. -->
@@ -47,7 +50,5 @@
 			</set>
 		</property>
 	</bean>
-	
-	
 	
 </beans>

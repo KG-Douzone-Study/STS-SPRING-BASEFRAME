@@ -3,13 +3,37 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<context:component-scan base-package="com.rio.base" />
+	
+	<!-- AOP 설정 (pom.xml aspectj-weaver 추가, Namespaces 에 aop 추가) -->
+	<bean id="log" class="com.rio.base.common.AopLogAdvice"></bean>
+	<bean id="before" class="com.rio.base.common.BeforeAdvice"></bean>
+	<bean id="afterReturning" class="com.rio.base.common.AfterReturningAdvice"></bean>
+	<bean id="afterThrowing" class="com.rio.base.common.AfterThrowingAdvice"></bean>
+	<bean id="after" class="com.rio.base.common.AfterAdvice"></bean>
+	<bean id="around" class="com.rio.base.common.AroundAdvice"></bean>
+	
+	<aop:config>
+							<!-- execution(리턴타입패턴 패키지경로패턴.클래스이름패턴.메서드이름패턴(파라미터패턴) -->
+		<aop:pointcut expression="execution(* com.rio.base..*Impl.*(..))" id="allPointcut"/>
+		<aop:pointcut expression="execution(* com.rio.base..*Impl.get*(..))" id="getPointcut"/>
+		<aop:aspect ref="around">
+			<aop:around method="aroundLog" pointcut-ref="allPointcut"/>
+		</aop:aspect>
+		<!-- <aop:aspect ref="after">
+			<aop:after method="finallyLog" pointcut-ref="allPointcut"/>
+		</aop:aspect> -->
+	</aop:config>
 	
 	<!-- MariaDB DataSource Config -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
