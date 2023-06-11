@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rio.base.common.LogAdvice;
@@ -59,6 +61,26 @@ public class TodoServiceImpl implements TodoService{
 		
 		return dtoList;
 	}
+	
+	// Postman Json Test, React Test
+	@Override
+	public ResponseEntity<?> getAllJson() {
+		// TODO Auto-generated method stub
+		log.info("---------- AOP Test Line ----------");
+		
+		List<TodoDTO> dtoList = todoMapper.selectAll().stream()
+				.map(vo -> modelMapper.map(vo, TodoDTO.class))
+				.collect(Collectors.toList());
+		
+//		log.info(dtoList.size());
+//		if (dtoList.size() == 2) {
+//			throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
+//		}
+		
+		return ResponseEntity.ok(dtoList);
+	}
+	
+	
 
 	@Override
 	public TodoDTO getOne(Long tno) {
