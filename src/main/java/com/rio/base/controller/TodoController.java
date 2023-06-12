@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rio.base.dto.PageRequestDTO;
 import com.rio.base.dto.TodoDTO;
 import com.rio.base.service.TodoService;
 
@@ -38,10 +39,23 @@ public class TodoController {
 //		return todoService.getAllJson();
 //	}
 	
+//	@RequestMapping("/list")
+//	public void list(Model model) {
+//		log.info("todo list.........");
+//		model.addAttribute("dtoList", todoService.getAll());
+//	}
+	
 	@RequestMapping("/list")
-	public void list(Model model) {
-		log.info("todo list.........");
-		model.addAttribute("dtoList", todoService.getAll());
+	public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model) {
+		
+		log.info(pageRequestDTO);
+		
+		if(bindingResult.hasErrors()) {
+			pageRequestDTO = pageRequestDTO.builder().build();
+		}
+		
+		model.addAttribute("responseDTO", todoService.getList(pageRequestDTO));
+
 	}
 	
 	

@@ -10,6 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.rio.base.domain.TodoVO;
+import com.rio.base.dto.PageRequestDTO;
+import com.rio.base.dto.PageResponseDTO;
+import com.rio.base.dto.TodoDTO;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -54,5 +57,20 @@ public class TodoMapperTests {
 		
 		log.info(todoVO);
 	}
+	
+	@Test
+	public void testSelectList() {
+		
+		PageRequestDTO pageReqeustDTO = PageRequestDTO.builder()
+				.page(1)
+				.size(10)
+				.build();
+		
+		List<TodoVO> voList = todoMapper.selectList(pageReqeustDTO);
+		
+		voList.forEach(vo -> log.info(vo));
+	}
+	
+	
 
 }

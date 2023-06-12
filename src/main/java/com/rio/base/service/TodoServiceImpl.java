@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.rio.base.common.LogAdvice;
 import com.rio.base.domain.TodoVO;
+import com.rio.base.dto.PageRequestDTO;
+import com.rio.base.dto.PageResponseDTO;
 import com.rio.base.dto.TodoDTO;
 import com.rio.base.mapper.TodoMapper;
 
@@ -44,23 +46,23 @@ public class TodoServiceImpl implements TodoService{
 		
 	}
 
-	@Override
-	public List<TodoDTO> getAll() {
-		// TODO Auto-generated method stub
-		
-		log.info("---------- AOP Test Line ----------");
-		
-		List<TodoDTO> dtoList = todoMapper.selectAll().stream()
-				.map(vo -> modelMapper.map(vo, TodoDTO.class))
-				.collect(Collectors.toList());
-		
-//		log.info(dtoList.size());
-//		if (dtoList.size() == 2) {
-//			throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
-//		}
-		
-		return dtoList;
-	}
+//	@Override
+//	public List<TodoDTO> getAll() {
+//		// TODO Auto-generated method stub
+//		
+//		log.info("---------- AOP Test Line ----------");
+//		
+//		List<TodoDTO> dtoList = todoMapper.selectAll().stream()
+//				.map(vo -> modelMapper.map(vo, TodoDTO.class))
+//				.collect(Collectors.toList());
+//		
+////		log.info(dtoList.size());
+////		if (dtoList.size() == 2) {
+////			throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
+////		}
+//		
+//		return dtoList;
+//	}
 	
 	// Postman Json Test, React Test
 //	@Override
@@ -80,7 +82,25 @@ public class TodoServiceImpl implements TodoService{
 //		return ResponseEntity.ok(dtoList);
 //	}
 	
-	
+	@Override
+	public PageResponseDTO<TodoDTO> getList(PageRequestDTO pageRequestDTO) {
+		// TODO Auto-generated method stub
+		
+		List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
+		List<TodoDTO> dtoList = voList.stream()
+				.map(vo -> modelMapper.map(vo, TodoDTO.class))
+				.collect(Collectors.toList());
+		
+		int total = todoMapper.getCount(pageRequestDTO);
+		
+		PageResponseDTO<TodoDTO> pageResponseDTO = PageResponseDTO.<TodoDTO>withAll()
+				.dtoList(dtoList)
+				.total(total)
+				.pageRequestDTO(pageRequestDTO)
+				.build();
+		
+		return pageResponseDTO;
+	}
 
 	@Override
 	public TodoDTO getOne(Long tno) {

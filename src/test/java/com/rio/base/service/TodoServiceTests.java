@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.rio.base.dto.PageRequestDTO;
+import com.rio.base.dto.PageResponseDTO;
 import com.rio.base.dto.TodoDTO;
 import com.rio.base.mapper.TodoMapperTests;
 
@@ -31,6 +33,18 @@ public class TodoServiceTests {
 				.build();
 		
 		todoService.register(todoDTO);
+	}
+	
+	@Test
+	public void testPaging() {
+		
+		PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();
+		
+		PageResponseDTO<TodoDTO> responseDTO = todoService.getList(pageRequestDTO);
+		
+		log.info(responseDTO);
+		
+		responseDTO.getDtoList().stream().forEach(todoDTO -> log.info(todoDTO));
 	}
 
 }

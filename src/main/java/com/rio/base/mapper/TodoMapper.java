@@ -3,6 +3,7 @@ package com.rio.base.mapper;
 import java.util.List;
 
 import com.rio.base.domain.TodoVO;
+import com.rio.base.dto.PageRequestDTO;
 
 public interface TodoMapper {
 	
@@ -17,5 +18,9 @@ public interface TodoMapper {
 	void delete(Long tno);
 	
 	void update(TodoVO todoVO);
+	
+	List<TodoVO> selectList(PageRequestDTO pageRequestDTO);
+	
+	int getCount(PageRequestDTO pageRequestDTO);
 
 }

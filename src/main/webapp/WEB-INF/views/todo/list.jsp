@@ -40,7 +40,7 @@
         </div>
         <!-- header end -->
         <!-- 기존의 <h1>Header</h1>끝 -->
-        <div class="row content">
+<%--         <div class="row content">
             <div class="col">
                 <div class="card">
                     <div class="card-body">
@@ -70,7 +70,7 @@
                 </div>
 
             </div>
-        </div>
+        </div> --%>
 
         <div class="row content">
             <div class="col">
@@ -91,11 +91,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${dtoList}" var="dto">
+                            <c:forEach items="${responseDTO.dtoList}" var="dto">
                                 <tr>
                                     <th scope="row"><c:out value="${dto.tno}"/></th>
                                     <td>
-                                        <a href="/todo/read?tno=${dto.tno}&${pageRequestDTO.link}" class="text-decoration-none" data-tno="${dto.tno}" >
+                                        <a href="/todo/read?tno=${dto.tno}" class="text-decoration-none" data-tno="${dto.tno}" >
                                             <c:out value="${dto.title}"/>
                                         </a>
                                     </td>
