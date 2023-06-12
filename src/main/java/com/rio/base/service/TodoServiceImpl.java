@@ -63,22 +63,22 @@ public class TodoServiceImpl implements TodoService{
 	}
 	
 	// Postman Json Test, React Test
-	@Override
-	public ResponseEntity<?> getAllJson() {
-		// TODO Auto-generated method stub
-		log.info("---------- AOP Test Line ----------");
-		
-		List<TodoDTO> dtoList = todoMapper.selectAll().stream()
-				.map(vo -> modelMapper.map(vo, TodoDTO.class))
-				.collect(Collectors.toList());
-		
-//		log.info(dtoList.size());
-//		if (dtoList.size() == 2) {
-//			throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
-//		}
-		
-		return ResponseEntity.ok(dtoList);
-	}
+//	@Override
+//	public ResponseEntity<?> getAllJson() {
+//		// TODO Auto-generated method stub
+//		log.info("---------- AOP Test Line ----------");
+//		
+//		List<TodoDTO> dtoList = todoMapper.selectAll().stream()
+//				.map(vo -> modelMapper.map(vo, TodoDTO.class))
+//				.collect(Collectors.toList());
+//		
+////		log.info(dtoList.size());
+////		if (dtoList.size() == 2) {
+////			throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
+////		}
+//		
+//		return ResponseEntity.ok(dtoList);
+//	}
 	
 	
 

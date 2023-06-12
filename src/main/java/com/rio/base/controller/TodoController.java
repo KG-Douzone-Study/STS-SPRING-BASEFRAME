@@ -31,20 +31,19 @@ public class TodoController {
 	
 	private final TodoService todoService;
 
-	@ResponseBody
-	@RequestMapping("/list")
-	public ResponseEntity<?> list(Model model) {
-		log.info("todo list.........");
-		return todoService.getAllJson();
-	}
-	
 //	@ResponseBody
 //	@RequestMapping("/list")
-//	public void list(Model model) {
+//	public ResponseEntity<?> list(Model model) {
 //		log.info("todo list.........");
-//		model.addAttribute("dtoList", todoService.getAll());
+//		return todoService.getAllJson();
 //	}
-//	
+	
+	@RequestMapping("/list")
+	public void list(Model model) {
+		log.info("todo list.........");
+		model.addAttribute("dtoList", todoService.getAll());
+	}
+	
 	
 	//@RequestMapping(value = "/register", method = RequestMethod.GET)
 	@GetMapping("/register")
@@ -58,30 +57,8 @@ public class TodoController {
 		log.info(todoDTO);
 	}
 	
-//	@PostMapping("/register")
-//	public String registerPost(@Valid TodoDTO todoDTO, 
-//								BindingResult bindingResult,
-//								RedirectAttributes redirectAttributes) {
-//		log.info("POST todo register........");
-//		
-//		log.info(todoDTO);
-//		
-//		if(bindingResult.hasErrors()) {
-//			log.info("has erros........");
-//			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-//			
-//			return "redirect:/todo/register";
-//		}
-//		
-//		log.info(todoDTO);
-//		
-//		todoService.register(todoDTO);
-//		
-//		return "redirect:/todo/list";
-//	}
-	
 	@PostMapping("/register")
-	public String registerPost(@Valid @RequestBody TodoDTO todoDTO, 
+	public String registerPost(@Valid TodoDTO todoDTO, 
 								BindingResult bindingResult,
 								RedirectAttributes redirectAttributes) {
 		log.info("POST todo register........");
@@ -101,6 +78,28 @@ public class TodoController {
 		
 		return "redirect:/todo/list";
 	}
+	
+//	@PostMapping("/register")
+//	public String registerPost(@Valid @RequestBody TodoDTO todoDTO, 
+//								BindingResult bindingResult,
+//								RedirectAttributes redirectAttributes) {
+//		log.info("POST todo register........");
+//		
+//		log.info(todoDTO);
+//		
+//		if(bindingResult.hasErrors()) {
+//			log.info("has erros........");
+//			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+//			
+//			return "redirect:/todo/register";
+//		}
+//		
+//		log.info(todoDTO);
+//		
+//		todoService.register(todoDTO);
+//		
+//		return "redirect:/todo/list";
+//	}
 	
 	@GetMapping({"/read", "/modify"})
 	public void read(Long tno, Model model) {
