@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,11 +58,35 @@ public class TodoController {
 		log.info(todoDTO);
 	}
 	
+//	@PostMapping("/register")
+//	public String registerPost(@Valid TodoDTO todoDTO, 
+//								BindingResult bindingResult,
+//								RedirectAttributes redirectAttributes) {
+//		log.info("POST todo register........");
+//		
+//		log.info(todoDTO);
+//		
+//		if(bindingResult.hasErrors()) {
+//			log.info("has erros........");
+//			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+//			
+//			return "redirect:/todo/register";
+//		}
+//		
+//		log.info(todoDTO);
+//		
+//		todoService.register(todoDTO);
+//		
+//		return "redirect:/todo/list";
+//	}
+	
 	@PostMapping("/register")
-	public String registerPost(@Valid TodoDTO todoDTO, 
+	public String registerPost(@Valid @RequestBody TodoDTO todoDTO, 
 								BindingResult bindingResult,
 								RedirectAttributes redirectAttributes) {
 		log.info("POST todo register........");
+		
+		log.info(todoDTO);
 		
 		if(bindingResult.hasErrors()) {
 			log.info("has erros........");
